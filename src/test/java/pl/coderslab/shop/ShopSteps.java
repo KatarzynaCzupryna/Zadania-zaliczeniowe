@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -44,7 +45,7 @@ public class ShopSteps {
         driver.findElement(By.cssSelector("a[data-link-action = 'add-address']")).click();
     }
 
-    @When("I enter new data alias {word} Address {word} City {word} PostalCode {string} Country {string} Phone {string}")
+    @When("I enter new data alias {string} Address {string} City {string} PostalCode {string} Country {string} Phone {string}")
     public void iEnterNewDataAliasAddressCityPostalCodeCountryPhone(String alias, String Address, String City, String PostalCode, String Country, String Phone) {
         driver.findElement(By.name("alias")).sendKeys(alias);
         driver.findElement(By.name("address1")).sendKeys(Address);
@@ -57,30 +58,29 @@ public class ShopSteps {
     @Then("I can click {string} button")
     public void iCanClickButton(String buttonName) {
         driver.findElement(By.className("form-control-submit")).click();
-  //  }
-    //@And("I can see new address.")
-  //  public void iCanSeeNewAddress() {
-       // WebElement alert = driver.findElement(By.className("alert-success"));
-     //   assertTrue(alert.isDisplayed());
-     //   assertEquals(messageText, alert.getText());
-   // }
+  }
+    @And("I can see success message with text {string}")
+    public void iCanSeeSuccessMessageWithText(String messageText) {
+        WebElement alert = driver.findElement(By.className("alert-success"));
+     assertTrue(alert.isDisplayed());
+     assertEquals(messageText, alert.getText());
+   }
+   @Then("I delete new address")
+   public void iDeleteNewAddress() {
+       List<WebElement> deleteElement = driver.findElements(By.xpath("//span[text()='Delete']"));
+       deleteElement.get(1).click();
+  }
 
-   // @Then("I delete new address")
-   // public void iDeleteNewAddress() {
-        //driver.findElement(By.cssSelector("a[data-link-action = 'delete-address']")).click();
-    }
-
-    //@And("I can see that address is deleted")
-   // public void iCanSeeThatAddressIsDeleted() {
-        //WebElement alert =  driver.findElement(By.className("alert-success"));
-       // assertTrue(alert.isDisplayed());
-       // assertEquals(messageText, alert.getText());
-
-   // }
+    @And("I can see that address is deleted with message text {string}")
+       public void iCanSeeThatAddressIsDeletedWithMessageText(String messageText) {
+        WebElement alert = driver.findElement(By.cssSelector("article[data-alert = 'success']"));
+        assertTrue(alert.isDisplayed());
+        assertEquals(messageText, alert.getText());
+   }
     @And("I close the browser")
-    public void iCloseTheBrowser() {
+   public void iCloseTheBrowser() {
         driver.quit();
 
-    }
+       }
 }
 
