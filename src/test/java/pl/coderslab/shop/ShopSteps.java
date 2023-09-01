@@ -37,8 +37,7 @@ public class ShopSteps {
 
     @And("I go to {string} page")
     public void iGoToPage(String YourAddress) {
-        driver.get("https://mystore-testlab.coderslab.pl/index.php?controller=addresses");
-
+        driver.findElement(By.cssSelector("a[href = 'https://mystore-testlab.coderslab.pl/index.php?controller=addresses']")).click();
 }
     @Then("I click {string} button")
     public void iClickButton(String CreateNewAddressBtn) {
@@ -57,6 +56,7 @@ public class ShopSteps {
 
     @Then("I can click {string} button")
     public void iCanClickButton(String buttonName) {
+
         driver.findElement(By.className("form-control-submit")).click();
   }
     @And("I can see success message with text {string}")
@@ -81,6 +81,6 @@ public class ShopSteps {
    public void iCloseTheBrowser() {
         driver.quit();
 
-       }
+    }
 }
 
